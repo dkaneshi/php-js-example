@@ -1,0 +1,31 @@
+version: "2"
+
+services:
+  php-apache:
+    image: php-pdo_mysql
+    build: .
+    ports:
+      - "80:80"
+    environment:
+      SERVER_ENVIRONEMNT: development
+      APPDB_HOSTNAME: mysql
+      APPDB_USERNAME: phpdev
+      APPDB_PASSWORD: phpdev
+      APPDB_NAME: phpdev
+    volumes:
+      - ./app:/var/www/html
+
+  mysql:
+    image: mysql:5.7.24
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_USER: phpdev
+      MYSQL_PASSWORD: phpdev
+      MYSQL_DATABASE: phpdev
+    volumes:
+      - mysql-dev:/var/lib/mysql
+
+volumes:
+  mysql-dev:
