@@ -6,7 +6,7 @@ require_once("objects/employee.php");
 $database = new Database();
 $db = $database->get_connection();
 $employee = new Employee($db);
-$result = $employee->readAll(0, 20);
+$result = $employee->read_all();
 
 echo json_encode($result);
 
