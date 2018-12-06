@@ -68,7 +68,27 @@ class Employee
         
     }
 
-    function readAll($from_record_num, $records_per_page)
+    function read_all()
+    {
+        $query = "SELECT * FROM {$this->table_name} ORDER BY employee_lname ASC";
+        try
+        {
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+        }
+        catch(Exception $e)
+        {
+            $error_message = "ERROR ".__FUNCTION__. "(): ";
+            $error_message .= $e->getMessage();
+            echo $error_message;
+            die();
+            // return [];
+        }
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    function read_limited($from_record_num, $records_per_page)
     {
         $query = "SELECT employee_id, employee_fname, employee_lname, employee_mname, employee_dob, employee_id_number, employee_gender " . 
             "FROM {$this->table_name} ORDER BY employee_lname ASC LIMIT {$from_record_num}, {$records_per_page}";
