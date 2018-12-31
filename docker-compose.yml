@@ -7,7 +7,7 @@ services:
     ports:
       - "80:80"
     environment:
-      SERVER_ENVIRONEMNT: development
+      SERVER_ENVIRONMENT: development
       APPDB_HOSTNAME: mysql
       APPDB_USERNAME: phpdev
       APPDB_PASSWORD: phpdev
@@ -26,6 +26,7 @@ services:
       MYSQL_DATABASE: phpdev
     volumes:
       - mysql-dev:/var/lib/mysql
+      - ./sql_scripts:/docker-entrypoint-initdb.d
 
 volumes:
   mysql-dev:
